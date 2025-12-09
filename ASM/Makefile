@@ -2,8 +2,7 @@ NAME = Colleen
 
 NASM = nasm
 
-FLAGS = -f elf64 -g
-
+FLAGS = -f elf64 
 SRC = colleen.s
 
 OBJ_PATH = obj/
@@ -17,11 +16,11 @@ OBJS_BONUS = $(addprefix $(OBJ_PATH), $(OBJ_BONUS))
 all: $(NAME)
 
 $(NAME): $(OBJS_SRC)
-	gcc $(OBJS_SRC)	-o $(NAME)
+	gcc $(OBJS_SRC) -static -o $(NAME)
 
 $(OBJ_PATH)%.o:%.s
 	mkdir -p $(OBJ_PATH)
-	$(NASM) $(FLAGS) -o $@ $<
+	$(NASM) $(FLAGS) $< -o $@
 
 clean: 
 	rm -fr $(OBJ_PATH)

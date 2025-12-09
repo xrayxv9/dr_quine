@@ -1,25 +1,30 @@
-section .text
+section	.text
 
-extern printf
-global main
+extern	printf
+global	main
 
 ; My foo function
 foo:
-	mov rax, 1
+	push	rbp
+	mov		rbp, rsp
+	mov		rax, 1
+	pop		rbp
 	ret
 
 main:
-	;call foo
-	call foo
-	push str
-	push 34
-	push str
-	push 34
-	call printf
-	add rsp, 32    ; nettoyer la pile (4 push × 8 bytes)
-	mov eax, 0     ; code retour
+	;call	foo
+	push	rbp
+	mov		rbp, rsp
+	call	foo
+	mov		rdi, str
+	mov		rsi, 10
+	mov		rdx, 9
+	mov		rcx, 34
+	mov		r8, str
+	call	printf wrt ..plt
+	pop		rbp
 	ret
 section .note.GNU-stack
 
 section .data
-	str: db "section .text", 10, 10,  "extern printf", 10, "global main", 10, 10, "; My foo function", 10, "foo:", 10, 9, "mov rax, 1", 10, 9, "ret", 10, 10, "main:", 10, 9, ";call foo", 10, 9,"push str", 10, 9, "push 34", 10, 9, "push str", 10, 9, "push 34", 10, 9, "call printf", 10, 9, "ret", 10, "section .note.GNU-stack", 10, 10, "section .data", 10, 9, "str: db %s", 10, 0
+	str: db "section	.text%1$c%1$cextern	printf%1$cglobal	main%1$c%1$c; My foo function%1$cfoo:%1$c%2$cpush	rbp%1$c%2$cmov		rbp, rsp%1$c%2$cmov		rax, 1%1$c%2$cpop		rbp%1$c%2$cret%1$c%1$cmain:%1$c%2$c;call	foo%1$c%2$cpush	rbp%1$c%2$cmov		rbp, rsp%1$c%2$ccall	foo%1$c%2$cmov		rdi, str%1$c%2$cmov		rsi, 10%1$c%2$cmov		rdx, 9%1$c%2$cmov		rcx, 34%1$c%2$cmov		r8, str%1$c%2$ccall	printf wrt ..plt%1$c%2$cpop		rbp%1$c%2$cret%1$csection .note.GNU-stack%1$c%1$csection .data%1$c%2$cstr: db %3$c%4$s%3$c, 0%1$c", 0
