@@ -1,6 +1,9 @@
 NASM = nasm
 FLAGS = -f elf64 
 
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g
+
 # noms des executables
 COLLEEN = Colleen
 GRACE = Grace
@@ -26,13 +29,13 @@ OBJS = $(OBJ_COLLEEN) $(OBJ_GRACE) $(OBJ_SULLY)
 all: $(NAME)
 
 $(COLLEEN): $(OBJ_COLLEEN)
-	ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o $@ $^ -lc
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(GRACE): $(OBJ_GRACE)
-	ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o $@ $^ -lc
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(SULLY): $(OBJ_SULLY)
-	ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o $@ $^ -lc
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJ_PATH)/%.o: %.s
 	mkdir -p $(OBJ_PATH)
@@ -43,6 +46,7 @@ clean:
 
 fclean: clean
 	rm -fr $(NAME)
+	rm -fr Sully_*.s
 
 re : fclean all
 
