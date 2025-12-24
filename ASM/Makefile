@@ -47,6 +47,7 @@ clean:
 fclean: clean
 	rm -fr $(NAME)
 	rm -fr Sully_*.s
+	rm -fr Sully_*.o
 
 re : fclean all
 
