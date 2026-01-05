@@ -45,5 +45,7 @@ clean:
 
 fclean: clean
 	rm -fr $(NAME)
+	rm -fr Sully_*.c
+	rm -fr Grace_kid.c
 
 re: fclean all
